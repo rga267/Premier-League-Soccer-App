@@ -6,4 +6,9 @@ Login
 
 {% block content %}
 <h1>Log In!</h1>
+
+    {% for message in messages %}
+    <p>{{message}}</p>
+    {% endfor%}
+
 {% endblock content %}
