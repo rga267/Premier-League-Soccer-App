@@ -17,7 +17,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             user_name = form.cleaned_data.get('username')
-            messages.success(request, 'Account was successfully created for ' + user_name+'.' + 'You can log in now!')
+            messages.success(request, 'Account was successfully created for ' + user_name+'.' + ' You can log in now!')
             return redirect('users:login')
 
     context = {'form':form}
