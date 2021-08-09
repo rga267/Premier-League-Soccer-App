@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import requests
 
 
 # Create your views here.
@@ -48,5 +49,33 @@ def logoutUser(request):
 
 @login_required(login_url='users:login')
 def home(request):
+    """
+    result = {}
+
+    url = "https://api-football-v1.p.rapidapi.com/v3/standings"
+
+    querystring = {"season":"2020","league":"39"}
+
+    headers = {
+    'x-rapidapi-key': config('RAPID_API_KEY'),
+    'x-rapidapi-host': 'v3.football.api-sports.io'
+    }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    
+    if response.status_code == 200:  # SUCCESS
+        result = response.json()
+        result['success'] = True
+        result['rate'] = {
+            'limit': response.headers['x-ratelimit-limit'],
+            'remaining': response.headers['x-ratelimit-remaining'],
+        }
+    else:
+        result['success'] = False
+        if response.status_code == 404:  # NOT FOUND
+            result['message'] = 'API-FOOTBALL services are not available at the moment. Please try again later.'
+    
+    """
+
     context = {}
     return render(request, 'users/home.html', context)
