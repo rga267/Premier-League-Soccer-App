@@ -33,7 +33,22 @@ Home Page
 </section>
 <div style="height: 1000px">
     <!-- just to make scrolling effect possible -->
-        <h2 class="myH2">What is this ?</h2>
+    <h2 class="myH2">2020 Season Standings</h2>
+    {% if search_result %}
+    {% if search_result.success %}
+        {% for result in search_result.response %}
+            {% for teams in result.league.standings %}
+                {% for info in teams %}
+                    <h3>{{info.rank}}</h3>
+                    <h3>{{info.team.name}}</h3>  
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    {% else %}
+        <p><em>{{ search_result.message }}</em></p>
+    {% endif %}
+    {% endif %}
+
 </div>
 
 <!-- Function used to shrink nav bar removing paddings and adding color background -->
