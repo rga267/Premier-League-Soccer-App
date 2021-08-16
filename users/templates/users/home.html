@@ -29,26 +29,59 @@ Home Page
     </div>
 </nav>
 
+
 <section class="home">
 </section>
-<div style="height: 1000px">
-    <!-- just to make scrolling effect possible -->
-    <h2 class="myH2">2020 Season Standings</h2>
-    {% if search_result %}
-    {% if search_result.success %}
-        {% for result in search_result.response %}
-            {% for teams in result.league.standings %}
-                {% for info in teams %}
-                    <h3>{{info.rank}}</h3>
-                    <h3>{{info.team.name}}</h3>  
-                {% endfor %}
-            {% endfor %}
-        {% endfor %}
-    {% else %}
-        <p><em>{{ search_result.message }}</em></p>
-    {% endif %}
-    {% endif %}
 
+
+<div class="container paddings-mini" style="margin-right: 100px; margin-left: 100px; margin-bottom: 100px;">
+    <h2 class="myH2">General Standings (2020/2021) </h2>
+    {% if search_result %}
+        {% if search_result.success %}
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table-striped table-responsive table-hover">
+                    <thead class="point-table-head">
+                        <tr>
+                            <th class="text-left">No</th>
+                            <th class="text-left">TEAM</th>
+                            <th class="text-center">MP</th>
+                            <th class="text-center">W</th>
+                            <th class="text-center">D</th>
+                            <th class="text-center">L</th>
+                            <th class="text-center">GF</th>
+                            <th class="text-center">GA</th>
+                            <th class="text-center">GD</th>
+                            <th class="text-center">PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    {% for result in search_result.response %}
+                        {% for teams in result.league.standings %}
+                            {% for info in teams %}
+                            <tr>
+                                <td class="text-left">{{info.rank}}</td>
+                                <td class="text-left"> <img alt="Team logo" src="{{info.team.logo}}"><span>{{info.team.name}}</span> </td>
+                                <td>{{info.all.played}}</td>
+                                <td>{{info.all.win}}</td>
+                                <td>{{info.all.draw}}</td>
+                                <td>{{info.all.lose}}</td>
+                                <td>{{info.all.goals.for}}</td>
+                                <td>{{info.all.goals.against}}</td>
+                                <td>{{info.goalsDiff}}</td>
+                                <td>{{info.points}}</td>
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <p><em>{{ search_result.message }}</em></p>
+        {% endif %}
+    {% endif %}
 </div>
 
 <!-- Function used to shrink nav bar removing paddings and adding color background -->
