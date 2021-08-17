@@ -4,9 +4,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from decouple import config
+from operator import itemgetter
 import requests
 import datetime
 import json 
+
 
 
 # Create your views here.
@@ -118,9 +120,11 @@ def matches(request):
         time_obj = datetime.datetime.strptime(times['fixture']['date'], "%Y-%m-%dT%H:%M:%S%z")
         time_time = time_obj.time()
         time_date = time_obj.date()
-        times['date'] = time_date.strftime("%A, %B, %Y")
+        times['date'] = time_date.strftime("%A, %B %d, %Y")
         times['time'] = time_time.strftime("%-I:%M %p")
-    
+
+    js_string['response'] = sorted(js_string['response'], key=lambda k: k['fixture']['date'])
+
     context = {'search_result': search_result, "js_string": js_string}
     return render(request, 'users/matches.html', context)
 

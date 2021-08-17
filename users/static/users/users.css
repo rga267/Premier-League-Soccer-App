@@ -374,29 +374,33 @@ table {
     background: rgba(57, 57, 57, 1);
     border: 1px solid inherit;
     border-collapse: collapse;
-    border-radius: 10px;
+    border-radius: 15px;
     margin: auto;
-}
-
-table thead tr th {
-    padding: 20px;
-    color: rgb(255, 255, 255);
-    font-size: 15px;
+    overflow:hidden;
 }
 
 table.table-striped tbody tr:nth-of-type(odd) {
     background: rgba(68, 68, 68, 1);
 }
 
+.text-left-head{
+    padding: 20px;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    text-align: left !important;
+}
+
 .text-left {
     text-align: left !important;
     padding: 10px 20px;
     color: rgb(255, 255, 255);
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .text-right{
     text-align: right !important;
+    color: rgb(255, 255, 255);
+    font-size: 13px;
 }
 
 .img-right {
@@ -420,10 +424,21 @@ table.table-striped tbody tr:nth-of-type(odd) {
 
 .fill-container{
     text-align: justify;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding-top: 20px;
+    padding-left: 45px;
+    padding-right: 45px;
 }
 
 .fill-container:after{
     content: "";
     display: inline-block;
     width: 100%;
+}
+
+.fill-container-time{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    padding-left: 42px;
 }
