@@ -7,6 +7,45 @@
     <script src="{% static 'users/users.js' %}"></script>
 </head>
 <body>
+    <nav class="nav">
+        <div class="container">
+            <div class="logo">
+                <a href="{% url 'users:home' %}">
+                    <img alt="Premier League" src="../../static/users/NicePng_manchester-united-png_620282.png"/>
+                </a>
+            </div>
+            <div id="mainListDiv" class="main_list">
+                <ul class="navlinks">
+                    <li><a href="{% url 'users:home' %}">Standings</a></li>
+                    <li><a href="{% url 'users:matches' %}">Matches</a></li>
+                    <li><a href="{% url 'users:favorites' %}">Favorites</a></li>
+                    <li><a href="{% url 'users:logout' %}">Logout ({{ user.username }})</a></li>
+                </ul>
+            </div>
+            <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </div>
+    </nav>
+    
+    
+    <section class="home">
+    </section>
+    
     {% block content %}{% endblock content %}
+
+    <!-- Function used to shrink nav bar removing paddings and adding color background -->
+    <script>
+        $(window).scroll(function() {
+            if ($(document).scrollTop() > 50) {
+                $('.nav').addClass('affix');
+                console.log("OK");
+            } else {
+                $('.nav').removeClass('affix');
+            }
+        });
+    </script>
 </body>
 </html>

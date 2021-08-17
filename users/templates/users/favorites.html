@@ -2,13 +2,13 @@
 {%load static%}
 
 {% block title %}
-Home
+Favorites
 {% endblock title %}
 
 {% block content %}
 
 <div class="container paddings-mini" style="margin-right: 100px; margin-left: 100px; margin-bottom: 100px;">
-    <h2 class="myH2">General Standings (2021/2022) </h2>
+    <h2 class="myH2">General Standings (2020/2021) </h2>
     {% if search_result %}
         {% if search_result.success %}
         <div class="row">
@@ -18,14 +18,14 @@ Home
                         <tr>
                             <th class="text-left">No</th>
                             <th class="text-left">TEAM</th>
-                            <th class="text-left">MP</th>
-                            <th class="text-left">W</th>
-                            <th class="text-left">D</th>
-                            <th class="text-left">L</th>
-                            <th class="text-left">GF</th>
-                            <th class="text-left">GA</th>
-                            <th class="text-left">GD</th>
-                            <th class="text-left">PTS</th>
+                            <th class="text-center">MP</th>
+                            <th class="text-center">W</th>
+                            <th class="text-center">D</th>
+                            <th class="text-center">L</th>
+                            <th class="text-center">GF</th>
+                            <th class="text-center">GA</th>
+                            <th class="text-center">GD</th>
+                            <th class="text-center">PTS</th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
@@ -34,15 +34,15 @@ Home
                             {% for info in teams %}
                             <tr>
                                 <td class="text-left">{{info.rank}}</td>
-                                <td class="text-left"> <img class="img-left" alt="Team logo" src="{{info.team.logo}}"><span>{{info.team.name}}</span> </td>
-                                <td class="text-left">{{info.all.played}}</td>
-                                <td class="text-left">{{info.all.win}}</td>
-                                <td class="text-left">{{info.all.draw}}</td>
-                                <td class="text-left">{{info.all.lose}}</td>
-                                <td class="text-left">{{info.all.goals.for}}</td>
-                                <td class="text-left">{{info.all.goals.against}}</td>
-                                <td class="text-left">{{info.goalsDiff}}</td>
-                                <td class="text-left">{{info.points}}</td>
+                                <td class="text-left"> <img alt="Team logo" src="{{info.team.logo}}"><span>{{info.team.name}}</span> </td>
+                                <td>{{info.all.played}}</td>
+                                <td>{{info.all.win}}</td>
+                                <td>{{info.all.draw}}</td>
+                                <td>{{info.all.lose}}</td>
+                                <td>{{info.all.goals.for}}</td>
+                                <td>{{info.all.goals.against}}</td>
+                                <td>{{info.goalsDiff}}</td>
+                                <td>{{info.points}}</td>
                             </tr>
                             {% endfor %}
                         {% endfor %}

@@ -375,6 +375,7 @@ table {
     border: 1px solid inherit;
     border-collapse: collapse;
     border-radius: 10px;
+    margin: auto;
 }
 
 table thead tr th {
@@ -388,19 +389,41 @@ table.table-striped tbody tr:nth-of-type(odd) {
 }
 
 .text-left {
-    text-align: left !important
-}
-
-table tr td {
-    padding: 10px 40px;
+    text-align: left !important;
+    padding: 10px 20px;
     color: rgb(255, 255, 255);
     font-size: 12px;
 }
 
-table tr td img {
+.text-right{
+    text-align: right !important;
+}
+
+.img-right {
+    float: right;
     max-width: 45px;
+    margin-left: 15px;
+    margin-top: 1px;
+}
+
+.img-left{
     float: left;
+    max-width: 45px;
     margin-right: 15px;
     margin-top: 1px;
+}
 
+.smaller-table{
+    width: 50%;
+    margin: auto;
+}
+
+.fill-container{
+    text-align: justify;
+}
+
+.fill-container:after{
+    content: "";
+    display: inline-block;
+    width: 100%;
 }

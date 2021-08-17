@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from decouple import config
 import requests
+import datetime
+import json 
 
 
 # Create your views here.
@@ -55,7 +57,8 @@ def home(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/standings"
 
-    query = {"season":"2020","league":"39"}
+    query = {"season":"2021","league":"39"}
+    #add dynamic season entry functionality
 
     headers = {
     'x-rapidapi-key': config('RAPID_API_KEY'),
@@ -78,3 +81,78 @@ def home(request):
 
     context = {'search_result': search_result}
     return render(request, 'users/home.html', context)
+
+
+@login_required(login_url='users:login')
+def matches(request):
+    
+    search_result = {}
+
+    url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
+
+    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-08-21"} 
+    #add dynamic date entries functionality
+
+    headers = {
+    'x-rapidapi-key': config('RAPID_API_KEY'),
+    'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
+    }
+
+    response = requests.get(url, headers=headers, params=query)
+
+    js_string = json.loads(response.text)
+
+    if response.status_code == 200:  # SUCCESS
+        search_result = response.json()
+        search_result['success'] = True
+        search_result['rate'] = {
+            'limit': response.headers['x-ratelimit-requests-limit'],
+            'remaining': response.headers['x-ratelimit-requests-remaining'],
+        }
+    else:
+        search_result['success'] = False
+        if response.status_code == 404:  # NOT FOUND
+            search_result['message'] = 'API-FOOTBALL services are not available at the moment. Please try again later.'
+    
+    for times in js_string['response']:
+        time_obj = datetime.datetime.strptime(times['fixture']['date'], "%Y-%m-%dT%H:%M:%S%z")
+        time_time = time_obj.time()
+        time_date = time_obj.date()
+        times['date'] = time_date.strftime("%A, %B, %Y")
+        times['time'] = time_time.strftime("%-I:%M %p")
+    
+    context = {'search_result': search_result, "js_string": js_string}
+    return render(request, 'users/matches.html', context)
+
+
+@login_required(login_url='users:login')
+def favorites(request):
+    
+    search_result = {}
+
+    url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
+
+    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-08-21"} 
+    #add dynamic date entries functionality
+
+    headers = {
+    'x-rapidapi-key': config('RAPID_API_KEY'),
+    'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
+    }
+
+    response = requests.get(url, headers=headers, params=query)
+
+    if response.status_code == 200:  # SUCCESS
+        search_result = response.json()
+        search_result['success'] = True
+        search_result['rate'] = {
+            'limit': response.headers['x-ratelimit-requests-limit'],
+            'remaining': response.headers['x-ratelimit-requests-remaining'],
+        }
+    else:
+        search_result['success'] = False
+        if response.status_code == 404:  # NOT FOUND
+            search_result['message'] = 'API-FOOTBALL services are not available at the moment. Please try again later.'
+
+    context = {'search_result': search_result}
+    return render(request, 'users/favorites.html', context)
