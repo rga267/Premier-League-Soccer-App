@@ -6,6 +6,8 @@ Home
 {% endblock title %}
 
 {% block content %}
+<section class="home">
+</section>
 
 <div class="container paddings-mini" style="margin-right: 100px; margin-left: 100px; margin-bottom: 100px;">
     <h2 class="myH2">General Standings (2021/2022) </h2>
@@ -13,7 +15,7 @@ Home
         {% if search_result.success %}
         <div class="row">
             <div class="col-lg-12">
-                <table class="table-striped table-responsive table-hover">
+                <table class="table-striped table-responsive table-hover" style="width: 75%">
                     <thead class="point-table-head">
                         <tr>
                             <th class="text-left-head">No</th>
@@ -33,16 +35,16 @@ Home
                         {% for teams in result.league.standings %}
                             {% for info in teams %}
                             <tr>
-                                <td class="text-left">{{info.rank}}</td>
-                                <td class="text-left"> <img class="img-left" alt="Team logo" src="{{info.team.logo}}"><span>{{info.team.name}}</span> </td>
-                                <td class="text-left">{{info.all.played}}</td>
-                                <td class="text-left">{{info.all.win}}</td>
-                                <td class="text-left">{{info.all.draw}}</td>
-                                <td class="text-left">{{info.all.lose}}</td>
-                                <td class="text-left">{{info.all.goals.for}}</td>
-                                <td class="text-left">{{info.all.goals.against}}</td>
-                                <td class="text-left">{{info.goalsDiff}}</td>
-                                <td class="text-left">{{info.points}}</td>
+                                <td class="text-number">{{info.rank}}</td>
+                                <td class="text-number"> <img class="img-left" alt="Team logo" src="{{info.team.logo}}"><span>{{info.team.name}}</span> </td>
+                                <td class="text-number">{{info.all.played}}</td>
+                                <td class="text-number">{{info.all.win}}</td>
+                                <td class="text-number">{{info.all.draw}}</td>
+                                <td class="text-number">{{info.all.lose}}</td>
+                                <td class="text-number">{{info.all.goals.for}}</td>
+                                <td class="text-number">{{info.all.goals.against}}</td>
+                                <td class="text-number">{{info.goalsDiff}}</td>
+                                <td class="text-number">{{info.points}}</td>
                             </tr>
                             {% endfor %}
                         {% endfor %}

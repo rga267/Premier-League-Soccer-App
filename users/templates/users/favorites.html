@@ -6,51 +6,47 @@ Favorites
 {% endblock title %}
 
 {% block content %}
+<section class="home" style="background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);">
+</section>
+
+<div>
+
+</div>
 
 <div class="container paddings-mini" style="margin-right: 100px; margin-left: 100px; margin-bottom: 100px;">
-    <h2 class="myH2">General Standings (2020/2021) </h2>
+    <h2 class="myH2">Favorites</h2>
     {% if search_result %}
         {% if search_result.success %}
-        <div class="row">
-            <div class="col-lg-12">
-                <table class="table-striped table-responsive table-hover">
-                    <thead class="point-table-head">
-                        <tr>
-                            <th class="text-left">No</th>
-                            <th class="text-left">TEAM</th>
-                            <th class="text-center">MP</th>
-                            <th class="text-center">W</th>
-                            <th class="text-center">D</th>
-                            <th class="text-center">L</th>
-                            <th class="text-center">GF</th>
-                            <th class="text-center">GA</th>
-                            <th class="text-center">GD</th>
-                            <th class="text-center">PTS</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                    {% for result in search_result.response %}
-                        {% for teams in result.league.standings %}
-                            {% for info in teams %}
-                            <tr>
-                                <td class="text-left">{{info.rank}}</td>
-                                <td class="text-left"> <img alt="Team logo" src="{{info.team.logo}}"><span>{{info.team.name}}</span> </td>
-                                <td>{{info.all.played}}</td>
-                                <td>{{info.all.win}}</td>
-                                <td>{{info.all.draw}}</td>
-                                <td>{{info.all.lose}}</td>
-                                <td>{{info.all.goals.for}}</td>
-                                <td>{{info.all.goals.against}}</td>
-                                <td>{{info.goalsDiff}}</td>
-                                <td>{{info.points}}</td>
+            <div class="row">
+                <div class="col-lg-12">
+                {% regroup js_string.response by date as result_list %}
+                {% for res in result_list%}
+                    <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 30px;">
+                        <thead class="point-table-head">
+                            <tr class="smaller-table">
+                                <th class="text-left-head">{{res.grouper}}</th><!--{{result.fixture.date}}-->
                             </tr>
-                            {% endfor %}
+                        </thead>
+                        <tbody class="text-center">
+                        {% for result in res.list %}
+                            <tr class="smaller-table">
+                                <td class="text-right" style="padding: 10px 0px 10px 70px; width: 40%;"> <span>{{result.teams.home.name}}</span> <img class="img-right" alt="Team logo" src="{{result.teams.home.logo}}"> </td>
+                              
+                                {% if result.fixture.status.elapsed == NULL %}
+                                    <td class="fill-container-time" style="width: 20%">{{result.time}}</td>
+                                {% else %}
+                                    <td class="fill-container" style="width: 20%">{{result.goals.home}} - {{result.goals.away}}</td>
+                                {% endif %}
+                          
+                                <td class="text-left" style="padding: 10px 70px 10px 0px; width: 40%;"> <img class="img-left" alt="Team logo" src="{{result.teams.away.logo}}"> <span>{{result.teams.away.name}}</span> </td>
+                            </tr>
                         {% endfor %}
-                    {% endfor %}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                {% endfor %}
+                </div>
             </div>
-        </div>
+            
         {% else %}
         <p><em>{{ search_result.message }}</em></p>
         {% endif %}

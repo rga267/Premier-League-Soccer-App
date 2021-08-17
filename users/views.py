@@ -146,6 +146,8 @@ def favorites(request):
 
     response = requests.get(url, headers=headers, params=query)
 
+    js_string = json.loads(response.text)
+
     if response.status_code == 200:  # SUCCESS
         search_result = response.json()
         search_result['success'] = True
@@ -157,6 +159,15 @@ def favorites(request):
         search_result['success'] = False
         if response.status_code == 404:  # NOT FOUND
             search_result['message'] = 'API-FOOTBALL services are not available at the moment. Please try again later.'
+    
+    for times in js_string['response']:
+        time_obj = datetime.datetime.strptime(times['fixture']['date'], "%Y-%m-%dT%H:%M:%S%z")
+        time_time = time_obj.time()
+        time_date = time_obj.date()
+        times['date'] = time_date.strftime("%A, %B %d, %Y")
+        times['time'] = time_time.strftime("%-I:%M %p")
 
-    context = {'search_result': search_result}
+    js_string['response'] = sorted(js_string['response'], key=lambda k: k['fixture']['date'])
+
+    context = {'search_result': search_result, "js_string": js_string}
     return render(request, 'users/favorites.html', context)

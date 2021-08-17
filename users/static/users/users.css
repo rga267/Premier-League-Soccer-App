@@ -370,7 +370,6 @@ https://images.unsplash.com/photo-1434648957308-5e6a859697e8?crop=entropy&cs=tin
 
 
 table {
-    width: 100%;
     background: rgba(57, 57, 57, 1);
     border: 1px solid inherit;
     border-collapse: collapse;
@@ -383,10 +382,17 @@ table.table-striped tbody tr:nth-of-type(odd) {
     background: rgba(68, 68, 68, 1);
 }
 
+.text-number{
+    text-align: left !important;
+    padding: 10px 20px;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
 .text-left-head{
     padding: 20px;
     color: rgb(255, 255, 255);
-    font-size: 16px;
+    font-size: 18px;
     text-align: left !important;
 }
 
@@ -394,13 +400,13 @@ table.table-striped tbody tr:nth-of-type(odd) {
     text-align: left !important;
     padding: 10px 20px;
     color: rgb(255, 255, 255);
-    font-size: 13px;
+    font-size: 18px;
 }
 
 .text-right{
     text-align: right !important;
     color: rgb(255, 255, 255);
-    font-size: 13px;
+    font-size: 18px;
 }
 
 .img-right {
