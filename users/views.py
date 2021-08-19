@@ -52,6 +52,8 @@ def logoutUser(request):
     logout(request)
     return redirect('users:login')
 
+
+#store teams info in database from first call
 @login_required(login_url='users:login')
 def home(request):
     
@@ -84,7 +86,7 @@ def home(request):
     context = {'search_result': search_result}
     return render(request, 'users/home.html', context)
 
-
+#clean up this code when done i.e. use js_string and rename to search_result
 @login_required(login_url='users:login')
 def matches(request):
     
@@ -129,6 +131,11 @@ def matches(request):
     return render(request, 'users/matches.html', context)
 
 
+#1block views to admin if not superuser
+#make a call to all fixtures
+#display what fixtures match team_ids in favorites of current user
+
+#2add functionality to add and remove teams from UI--create for loop for request.method=="POST"
 @login_required(login_url='users:login')
 def favorites(request):
     
