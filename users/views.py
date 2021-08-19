@@ -138,7 +138,7 @@ def favorites(request):
 
     query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-08-21"} 
     #add dynamic date entries functionality
-
+    
     headers = {
     'x-rapidapi-key': config('RAPID_API_KEY'),
     'x-rapidapi-host': 'api-football-v1.p.rapidapi.com'
