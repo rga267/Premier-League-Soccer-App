@@ -1,16 +1,19 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.conf import settings
+from django.contrib.auth.models import User, Group
 
-from .models import Favorites
+from .models import Favorites, Team
 class FavoritesInline(admin.StackedInline):
     model = Favorites
     can_delete = False
     verbose_name_plural = 'favorites'
 
 class UserAdmin(BaseUserAdmin):
-    inlines = (FavoritesInline)
+    inlines = (FavoritesInline,)
 
 
-admin.site.unregister(settings.AUTH_USER_MODEL)
-admin.site.register(settings.AUTH_USER_MODEL, UserAdmin)
+admin.site.unregister(User)
+admin.site.unregister(Group)
+admin.site.register(User, UserAdmin)
+admin.site.register(Team)
+admin.site.register(Favorites)
