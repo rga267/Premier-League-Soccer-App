@@ -8,8 +8,7 @@ from operator import itemgetter
 import requests
 import datetime
 import json 
-
-
+import pdb; 
 
 # Create your views here.
 def signup(request):
@@ -143,7 +142,7 @@ def favorites(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
 
-    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-08-21"} 
+    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-09-27"} 
     #add dynamic date entries functionality
     
     headers = {
@@ -153,7 +152,9 @@ def favorites(request):
 
     response = requests.get(url, headers=headers, params=query)
 
-    js_string = json.loads(response.text)
+    js_string_fav = json.loads(response.text)
+
+    user_team_ids = list(request.user.favorites.teams.all().values_list('team_id', flat=True))
 
     if response.status_code == 200:  # SUCCESS
         search_result = response.json()
@@ -166,15 +167,23 @@ def favorites(request):
         search_result['success'] = False
         if response.status_code == 404:  # NOT FOUND
             search_result['message'] = 'API-FOOTBALL services are not available at the moment. Please try again later.'
-    
-    for times in js_string['response']:
+
+
+    for times in js_string_fav['response']:
+   
         time_obj = datetime.datetime.strptime(times['fixture']['date'], "%Y-%m-%dT%H:%M:%S%z")
         time_time = time_obj.time()
         time_date = time_obj.date()
         times['date'] = time_date.strftime("%A, %B %d, %Y")
         times['time'] = time_time.strftime("%-I:%M %p")
+    
 
-    js_string['response'] = sorted(js_string['response'], key=lambda k: k['fixture']['date'])
+    js_string_fav['response'] = sorted(js_string_fav['response'], key=lambda k: k['fixture']['date'])
 
-    context = {'search_result': search_result, "js_string": js_string}
+
+    for items in js_string_fav['response'][:]:
+        if items['teams']['home']['id'] not in user_team_ids and items['teams']['away']['id'] not in user_team_ids:
+            js_string_fav['response'].remove(items)
+    
+    context = {'search_result': search_result, "js_string_fav": js_string_fav}
     return render(request, 'users/favorites.html', context)

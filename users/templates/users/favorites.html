@@ -24,7 +24,7 @@ Favorites
         {% if search_result.success %}
             <div class="row">
                 <div class="col-lg-12">
-                {% regroup js_string.response by date as result_list %}
+                {% regroup js_string_fav.response by date as result_list %}
                 {% for res in result_list%}
                     <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 30px;">
                         <thead class="point-table-head">

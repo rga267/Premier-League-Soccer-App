@@ -4,7 +4,7 @@ from django.db.models.deletion import CASCADE
 
 class Team(models.Model):
     name = models.CharField(max_length=100, null=True)
-    team_id = models.CharField(max_length=100, null=True)
+    team_id = models.IntegerField(null=True)
     logo = models.URLField(null=True)
     #user = models.ManytoManyField(settings.AUTH_USER_MODEL, through='Favorites')
 
