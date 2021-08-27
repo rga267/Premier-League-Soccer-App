@@ -96,7 +96,7 @@ def matches(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
 
-    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-11-01"} 
+    query = {"league":"39","season":"2021","timezone":"America/New_York","from":"2021-08-12","to":"2021-11-01"} 
 
     headers = {
     'x-rapidapi-key': config('RAPID_API_KEY'),
@@ -139,7 +139,7 @@ def favorites(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
 
-    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-11-01"} 
+    query = {"league":"39","season":"2021","timezone":"America/New_York","from":"2021-08-12","to":"2021-11-01"} 
     
     headers = {
     'x-rapidapi-key': config('RAPID_API_KEY'),
