@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 {%load static%}
 <html>
+<head>
     <title>{% block title %}{% endblock title %}</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="{% static 'users/users.css' %}">
     <script src="{% static 'users/users.js' %}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>    
+    $(window).on('beforeunload', function() {
+        $(window).scrollTop(0);
+    });
+    </script>
 </head>
 <body>
     <nav class="nav">
@@ -35,18 +41,14 @@
 
     <!-- Function used to shrink nav bar removing paddings and adding color background -->
     <script>
-        $(window).scroll(function() {
-            if ($(document).scrollTop() > 50) {
-                $('.nav').addClass('affix');
-                console.log("OK");
-            } else {
-                $('.nav').removeClass('affix');
-            }
-        });
-
-        $(window).on('beforeunload', function() {
-            $(window).scrollTop(0);
-        });
+    $(window).scroll(function() {
+        if ($(document).scrollTop() > 50) {
+            $('.nav').addClass('affix');
+            console.log("OK");
+        } else {
+            $('.nav').removeClass('affix');
+        }
+    });
     </script>
 </body>
 </html>

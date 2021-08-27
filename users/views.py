@@ -29,6 +29,7 @@ def signup(request):
     context = {'form':form}
     return render(request, 'users/signup.html', context)
 
+
 def loginPage(request):
     if request.user.is_authenticated:
         return redirect('users:home')
@@ -47,6 +48,7 @@ def loginPage(request):
 
     context = {}
     return render(request, 'users/login.html', context)
+
 
 def logoutUser(request):
     logout(request)
@@ -94,8 +96,7 @@ def matches(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
 
-    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-09-27"} 
-    #add dynamic date entries functionality
+    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-11-01"} 
 
     headers = {
     'x-rapidapi-key': config('RAPID_API_KEY'),
@@ -131,11 +132,6 @@ def matches(request):
     return render(request, 'users/matches.html', context)
 
 
-#1block views to admin if not superuser
-#make a call to all fixtures
-#display what fixtures match team_ids in favorites of current user
-
-#2add functionality to add and remove teams from UI--create for loop for request.method=="POST"
 @login_required(login_url='users:login')
 def favorites(request):
 
@@ -143,8 +139,7 @@ def favorites(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
 
-    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-09-27"} 
-    #add dynamic date entries functionality
+    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-11-01"} 
     
     headers = {
     'x-rapidapi-key': config('RAPID_API_KEY'),

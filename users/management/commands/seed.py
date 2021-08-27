@@ -5,9 +5,8 @@ import json
 from decouple import config
 
 
-#def clear_data():
-#   Team.objects.all().delete()
-
+def clear_data():
+   Team.objects.all().delete()
 
 def get_teams():
 
@@ -41,5 +40,6 @@ class Command(BaseCommand):
     help = 'Update Team DB'
 
     def handle(self, *args, **options):
+        clear_data()
         seed_teams()
         print("Successfully Updated")
