@@ -10,5 +10,6 @@ urlpatterns = [
     path('users/', views.home, name="home"),
     path('users/matches', views.matches, name="matches"),
     path('users/favorites', views.favorites, name="favorites"),
-
+    path('users/editfavorites', views.editfavorites, name="editfavorites"),
+    
 ]

@@ -1,0 +1,92 @@
+{% extends "users/base.html" %}
+{%load static%}
+
+{% block title %}
+Edit Favorites
+{% endblock title %}
+
+{% block content %}
+<section class="home" style="background-image: url(https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b0f6908fa5e81286213c7211276e6b3d&auto=format&fit=crop&w=1500&q=80);">
+</section>
+
+<div class="container paddings-mini" style="margin-right: 100px; margin-left: 100px; margin-bottom: 100px;">
+    <h2 class="myH2">Edit Favorites</h2>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 30px;">
+                        <thead class="point-table-head">
+                            <tr class="smaller-table">
+                                <th class="text-left-head">Favorites</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        {% for info in all_teams %}
+                            <tr class="smaller-table">
+                                <td class="custom-checkbox">
+                                    <label>
+                                        <input type="checkbox" />
+                                        <i class="far fa-star" style="font-size: 30px; "></i>
+                                        <i class="fas fa-star" style="font-size: 30px;"></i>
+                                    </label>
+                                
+                                </td><!--add team_id value to register when star is lit #{{info.team_id}}-->
+                                <td class="text-left" style="width: 95%;"><img class="img-left" alt="Team logo" src="{{info.logo}}"><span>{{info.name}}</span></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    <!--
+    <form>method="POST" action="">
+        {% csrf_token %}
+
+        the table with premier league teams with star next to each and team_ids linked to it.
+        stars will dynamically be lit or unlit depending on click
+        lit stars will be added to selected_ids
+        button will confirm and send selected_ids back to editfavorites and favorites will be updated 
+        user will be redirected to favorites page with edited favorites
+        <input name="team_id1" type="text" id="1"/>
+        //
+        <label>☆
+        <input type="radio" name="starValue" value="4" />
+        </label>
+
+        $(document).ready(function() {
+            $('label').click(function() {
+                $('label').removeClass('active');
+                $(this).addClass('active');
+            });
+        });
+
+        .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        float: left;
+        }
+        .rating > label {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        }
+        .rating > label.active:before,
+        .rating > label.active ~ label:before,
+        .rating > label:hover:before,
+        .rating > label:hover ~ label:before {
+        content: "\2605";
+        position: absolute;
+        }
+        input {
+        display: none;
+        }
+        //
+        ...
+        <button type="submit" class="btn btn-secondary btn-block">Confirm</button></a>
+
+    </form>
+    -->
+    <button type="submit" class="btn btn-secondary btn-block">Confirm</button></a>
+</div>
+
+
+{% endblock content %}

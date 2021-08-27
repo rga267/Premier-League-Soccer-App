@@ -16,6 +16,7 @@ body {
 /* Navbar section */
 
 .nav {
+    z-index: 500;
     width: 100%;
     height: 65px;
     position: fixed;
@@ -383,7 +384,7 @@ table.table-striped tbody tr:nth-of-type(odd) {
 }
 
 .text-number{
-    text-align: left !important;
+    text-align: left;
     padding: 10px 20px;
     color: rgb(255, 255, 255);
     font-size: 20px;
@@ -448,3 +449,37 @@ table.table-striped tbody tr:nth-of-type(odd) {
     font-size: 20px;
     padding-left: 42px;
 }
+
+
+label input[type="checkbox"] {
+    display: none;
+}
+
+
+.custom-checkbox{
+    text-align:center;
+
+}
+
+.far{
+	color: grey;
+    cursor: pointer;
+    position: absolute;
+}
+
+.fas{
+	color: gold;
+    cursor: pointer;
+    position:absolute;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.fas:hover{
+	opacity: 0.5;
+}
+
+input:checked ~ .fas{
+	opacity:1;
+}
+

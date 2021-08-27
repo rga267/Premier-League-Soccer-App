@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from decouple import config
 from operator import itemgetter
+from .models import Team
 import requests
 import datetime
 import json 
@@ -93,7 +94,7 @@ def matches(request):
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
 
-    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-08-21"} 
+    query = {"league":"39","season":"2021","from":"2021-08-12","to":"2021-09-27"} 
     #add dynamic date entries functionality
 
     headers = {
@@ -137,7 +138,7 @@ def matches(request):
 #2add functionality to add and remove teams from UI--create for loop for request.method=="POST"
 @login_required(login_url='users:login')
 def favorites(request):
-    
+
     search_result = {}
 
     url = "https://api-football-v1.p.rapidapi.com/v3/fixtures"
@@ -187,3 +188,30 @@ def favorites(request):
     
     context = {'search_result': search_result, "js_string_fav": js_string_fav}
     return render(request, 'users/favorites.html', context)
+
+
+@login_required(login_url='users:login')
+def editfavorites(request):
+    '''
+    #assuming selected_ids is list of selected teams out of all teams 
+    if request.method == "POST":
+        user = request.user
+        selected_ids = request.GET["selected_ids"]
+        current_teams = list(user.favorites.teams.all().values_list('team_id', flat=True))
+        
+        for x in current_teams:
+            if x not in selected_ids:
+                user.favorites.teams.get(team_id=x).delete()
+                user.save()
+
+        for x in selected_ids:
+            team = Team.objects.get(team_id=x)
+            user.favorites.teams.add(team)
+            user.save()
+
+        return redirect('users:favorites')
+    '''
+    all_teams = Team.objects.all()
+    context = {'all_teams': all_teams}
+    return render(request, 'users/editfavorites.html', context)
+
