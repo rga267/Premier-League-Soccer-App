@@ -13,7 +13,8 @@ Edit Favorites
     <h2 class="myH2">Edit Favorites</h2>
             <div class="row">
                 <div class="col-lg-12">
-                    <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 30px;">
+                <form method="POST" action="">
+                    <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 15px;">
                         <thead class="point-table-head">
                             <tr class="smaller-table">
                                 <th class="text-left-head">Favorites</th>
@@ -35,57 +36,13 @@ Edit Favorites
                         {% endfor %}
                         </tbody>
                     </table>
+                    <div id="wrapper">
+                    <button type="submit" class="button">Confirm</button></a>
+                    </div>
+                </form>
                 </div>
             </div>
-    <!--
-    <form>method="POST" action="">
-        {% csrf_token %}
 
-        the table with premier league teams with star next to each and team_ids linked to it.
-        stars will dynamically be lit or unlit depending on click
-        lit stars will be added to selected_ids
-        button will confirm and send selected_ids back to editfavorites and favorites will be updated 
-        user will be redirected to favorites page with edited favorites
-        <input name="team_id1" type="text" id="1"/>
-        //
-        <label>☆
-        <input type="radio" name="starValue" value="4" />
-        </label>
-
-        $(document).ready(function() {
-            $('label').click(function() {
-                $('label').removeClass('active');
-                $(this).addClass('active');
-            });
-        });
-
-        .rating {
-        unicode-bidi: bidi-override;
-        direction: rtl;
-        float: left;
-        }
-        .rating > label {
-        display: inline-block;
-        position: relative;
-        width: 1.1em;
-        }
-        .rating > label.active:before,
-        .rating > label.active ~ label:before,
-        .rating > label:hover:before,
-        .rating > label:hover ~ label:before {
-        content: "\2605";
-        position: absolute;
-        }
-        input {
-        display: none;
-        }
-        //
-        ...
-        <button type="submit" class="btn btn-secondary btn-block">Confirm</button></a>
-
-    </form>
-    -->
-    <button type="submit" class="btn btn-secondary btn-block">Confirm</button></a>
 </div>
 
 

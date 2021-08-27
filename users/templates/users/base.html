@@ -43,6 +43,10 @@
                 $('.nav').removeClass('affix');
             }
         });
+
+        $(window).on('beforeunload', function() {
+            $(window).scrollTop(0);
+        });
     </script>
 </body>
 </html>
