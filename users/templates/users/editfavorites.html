@@ -14,7 +14,8 @@ Edit Favorites
             <div class="row">
                 <div class="col-lg-12">
                 <form method="POST" action="">
-                    <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 15px;">
+                    {% csrf_token %}
+                    <table class="table-striped table-responsive table-hover" style="width: 70%; margin-top: 30px; margin-bottom: 30px;">
                         <thead class="point-table-head">
                             <tr class="smaller-table">
                                 <th class="text-left-head">Favorites</th>
@@ -24,12 +25,11 @@ Edit Favorites
                         {% for info in all_teams %}
                             <tr class="smaller-table">
                                 <td class="custom-checkbox">
-                                    <label>
-                                        <input type="checkbox" />
+                                    <label >
+                                        <input type="checkbox" name="{{info.name}}" value="{{info.team_id}}" />
                                         <i class="far fa-star" style="font-size: 30px; "></i>
                                         <i class="fas fa-star" style="font-size: 30px;"></i>
                                     </label>
-                                
                                 </td><!--add team_id value to register when star is lit #{{info.team_id}}-->
                                 <td class="text-left" style="width: 95%;"><img class="img-left" alt="Team logo" src="{{info.logo}}"><span>{{info.name}}</span></td>
                             </tr>
