@@ -192,12 +192,19 @@ def favorites(request):
 
 @login_required(login_url='users:login')
 def editfavorites(request):
- 
+
+    user = request.user
+    current_teams = list(user.favorites.teams.all().values_list('team_id', flat=True))
+
     if request.method == "POST":
         data = request.POST.values()
-        user = request.user
-        current_teams = list(user.favorites.teams.all().values_list('team_id', flat=True))
         selected_ids = list(data)
+
+        for x in current_teams:
+            if x not in selected_ids:
+                team = Team.objects.get(team_id=x)
+                user.favorites.teams.remove(team)
+                user.save()
 
         for x in selected_ids[1:]:
             if x not in current_teams:
@@ -207,18 +214,7 @@ def editfavorites(request):
 
         return redirect('users:favorites')
 
-    ''' 
-        deleting here, deletes from the database--figure out why
-        
-        -perhaps adding a separate page to add and delete favorites?
-
-        for x in current_teams:
-            if x not in selected_ids:
-                user.favorites.teams.get(team_id=x).delete()
-                user.save()
-    '''
-
     all_teams = Team.objects.all()
-    context = {'all_teams': all_teams}
+    context = {'all_teams': all_teams, 'current_teams': current_teams}
     return render(request, 'users/editfavorites.html', context)
 
